@@ -17,7 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Archemy.Data\Archemy.Data.csproj" />
     <ProjectReference Include="..\Archemy.Helper\Archemy.Helper.csproj" />
+    <ProjectReference Include="..\Archemy.Product.Bll\Archemy.Product.Bll.csproj" />
   </ItemGroup>
 
 </Project>

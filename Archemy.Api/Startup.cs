@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Archemy.Api.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -23,21 +24,25 @@ namespace Archemy.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.ConfigureRepository(Configuration);
+            services.ConfigureRedisCache(Configuration);
+            services.ConfigureProductBll();
+            services.ConfigureComponent();
+            services.ConfigureMvc();
+            services.ConfigureCors();
+            services.ConfigureSwagger();
+            services.ConfigureCookieAuthen(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            app.UseAuthentication();
+            app.ConfigureUseSwagger();
+            app.ConfigureMiddleware();
+            app.ConfigureHandlerStatusPages();
+            app.UseCors("CorsPolicy");
+            app.UseMvc();
         }
     }
 }

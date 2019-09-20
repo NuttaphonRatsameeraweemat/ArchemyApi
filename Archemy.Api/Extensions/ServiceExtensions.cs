@@ -1,7 +1,11 @@
-﻿using Archemy.Helper;
+﻿using Archemy.Data;
+using Archemy.Data.Repository.Interfaces;
+using Archemy.Helper;
 using Archemy.Helper.Components;
 using Archemy.Helper.Interfaces;
 using Archemy.Helper.Models;
+using Archemy.Product.Bll;
+using Archemy.Product.Bll.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,6 +13,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -33,11 +38,11 @@ namespace Archemy.Api.Extensions
         /// <param name="Configuration">The configuration from settinfile.</param>
         public static void ConfigureRepository(this IServiceCollection services, IConfiguration Configuration)
         {
-            //services.AddEntityFrameworkSqlServer()
-            // .AddDbContext<EVFContext>(options =>
-            //  options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+            services.AddEntityFrameworkSqlServer()
+             .AddDbContext<ArchemyContext>(options =>
+              options.UseNpgsql(Configuration["ConnectionStrings:DefaultConnection"]));
 
-            //services.AddTransient<IUnitOfWork, EVFUnitOfWork>();
+            services.AddTransient<IUnitOfWork, ArchemyUnitOfWork>();
         }
 
         /// <summary>
@@ -54,9 +59,10 @@ namespace Archemy.Api.Extensions
         /// Dependency Injection Business Logic Layer.
         /// </summary>
         /// <param name="services">The service collection.</param>
-        public static void ConfigureBll(this IServiceCollection services)
+        public static void ConfigureProductBll(this IServiceCollection services)
         {
-
+            services.AddScoped<IProductBll, ProductBll>();
+            services.AddScoped<IProductTypeBll, ProductTypeBll>();
         }
 
         /// <summary>
@@ -66,35 +72,11 @@ namespace Archemy.Api.Extensions
         public static void ConfigureComponent(this IServiceCollection services)
         {
             services.AddSingleton<IConfigSetting, ConfigSetting>();
+            services.AddSingleton<ILoggerManager, LoggerManager>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IEmailService, EmailService>();
 
             services.AddTransient<IManageToken, ManageToken>();
-        }
-
-        /// <summary>
-        /// Dependency Injection Httpcontext.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        public static void ConfigureHttpContextAccessor(this IServiceCollection services)
-        {
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-        }
-
-        /// <summary>
-        /// Add Singletion Logger Class
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        public static void ConfigureLoggerService(this IServiceCollection services)
-        {
-            services.AddSingleton<ILoggerManager, LoggerManager>();
-        }
-
-        /// <summary>
-        /// Dependency Injection Email Service. 
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        public static void ConfigureEmailService(this IServiceCollection services)
-        {
-            services.AddSingleton<IEmailService, EmailService>();
         }
 
         /// <summary>

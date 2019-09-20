@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archemy.Data", "Archemy.Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archemy.Helper", "Archemy.Helper\Archemy.Helper.csproj", "{15E46A82-5C36-4016-BBF9-489C348355FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archemy.Product.Bll", "Archemy.Product.Bll\Archemy.Product.Bll.csproj", "{7BC7D65B-7A9F-45D2-88C4-BA4C39E575DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,9 +31,16 @@ Global
 		{15E46A82-5C36-4016-BBF9-489C348355FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15E46A82-5C36-4016-BBF9-489C348355FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15E46A82-5C36-4016-BBF9-489C348355FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BC7D65B-7A9F-45D2-88C4-BA4C39E575DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BC7D65B-7A9F-45D2-88C4-BA4C39E575DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BC7D65B-7A9F-45D2-88C4-BA4C39E575DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BC7D65B-7A9F-45D2-88C4-BA4C39E575DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7BC7D65B-7A9F-45D2-88C4-BA4C39E575DC} = {C1FB2774-E053-4FE7-A953-F78CF5E93768}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {66B7397B-F327-4E87-B184-CD4AB828EC68}
