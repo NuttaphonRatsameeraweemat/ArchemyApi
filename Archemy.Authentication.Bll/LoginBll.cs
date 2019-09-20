@@ -117,7 +117,8 @@ namespace Archemy.Authentication.Bll
                 Id = data.Id,
                 FirstName = data.FirstName,
                 LastName = data.LastName,
-                Email = data.Email
+                Email = data.Email,
+                EmployeeType = data.EmployeeType
             };
             _identity = new ClaimsIdentity();
             _identity.AddClaim(new Claim(ClaimTypes.Name, data.Email));

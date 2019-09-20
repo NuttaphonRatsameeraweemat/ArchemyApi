@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Archemy.Authentication.Bll\Archemy.Authentication.Bll.csproj" />
     <ProjectReference Include="..\Archemy.Data\Archemy.Data.csproj" />
+    <ProjectReference Include="..\Archemy.Employee.Bll\Archemy.Employee.Bll.csproj" />
     <ProjectReference Include="..\Archemy.Helper\Archemy.Helper.csproj" />
     <ProjectReference Include="..\Archemy.Product.Bll\Archemy.Product.Bll.csproj" />
   </ItemGroup>

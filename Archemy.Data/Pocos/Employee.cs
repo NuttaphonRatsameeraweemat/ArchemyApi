@@ -15,5 +15,7 @@ namespace Archemy.Data.Pocos
         public string LastName { get; set; }
         [StringLength(150)]
         public string Email { get; set; }
+        [StringLength(1)]
+        public string EmployeeType { get; set; }
     }
 }

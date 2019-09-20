@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Archemy.Api.Extensions;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,11 +29,13 @@ namespace Archemy.Api
             services.ConfigureRedisCache(Configuration);
             services.ConfigureAuthenticationBll();
             services.ConfigureProductBll();
+            services.ConfigureEmployeeBll();
             services.ConfigureComponent();
             services.ConfigureMvc();
             services.ConfigureCors();
             services.ConfigureSwagger();
             services.ConfigureCookieAuthen(Configuration);
+            services.AddAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
