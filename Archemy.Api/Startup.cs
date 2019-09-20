@@ -26,6 +26,7 @@ namespace Archemy.Api
         {
             services.ConfigureRepository(Configuration);
             services.ConfigureRedisCache(Configuration);
+            services.ConfigureAuthenticationBll();
             services.ConfigureProductBll();
             services.ConfigureComponent();
             services.ConfigureMvc();

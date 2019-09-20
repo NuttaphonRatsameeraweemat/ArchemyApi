@@ -8,15 +8,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
     <PackageReference Include="SyrianBallaS.AutoMapper.Extensions.Microsoft.DependencyInjection.Signed" Version="3.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controller\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Archemy.Authentication.Bll\Archemy.Authentication.Bll.csproj" />
     <ProjectReference Include="..\Archemy.Data\Archemy.Data.csproj" />
     <ProjectReference Include="..\Archemy.Helper\Archemy.Helper.csproj" />
     <ProjectReference Include="..\Archemy.Product.Bll\Archemy.Product.Bll.csproj" />

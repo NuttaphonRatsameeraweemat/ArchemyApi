@@ -1,4 +1,6 @@
-﻿using Archemy.Data;
+﻿using Archemy.Authentication.Bll;
+using Archemy.Authentication.Bll.Interfaces;
+using Archemy.Data;
 using Archemy.Data.Repository.Interfaces;
 using Archemy.Helper;
 using Archemy.Helper.Components;
@@ -63,6 +65,15 @@ namespace Archemy.Api.Extensions
         {
             services.AddScoped<IProductBll, ProductBll>();
             services.AddScoped<IProductTypeBll, ProductTypeBll>();
+        }
+
+        /// <summary>
+        /// Dependency Injection Business Logic Layer.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        public static void ConfigureAuthenticationBll(this IServiceCollection services)
+        {
+            services.AddScoped<ILoginBll, LoginBll>();
         }
 
         /// <summary>
