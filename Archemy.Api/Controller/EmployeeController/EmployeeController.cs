@@ -50,10 +50,10 @@ namespace Archemy.Api.Controller.EmployeeController
         }
 
         [HttpPost]
-        [Route("Update")]
-        public IActionResult Update([FromBody]EmployeeViewModel model)
+        [Route("Edit")]
+        public IActionResult Edit([FromBody]EmployeeViewModel model)
         {
-            return Ok(_employee.Update(model));
+            return Ok(_employee.Edit(model));
         }
 
         #endregion

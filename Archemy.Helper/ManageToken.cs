@@ -37,6 +37,10 @@ namespace Archemy.Helper
         /// </summary>
         public string Email => _httpContext.User.Identity.Name;
         /// <summary>
+        /// Get Employee id from payload token.
+        /// </summary>
+        public string EmpId => _httpContext.User.Claims.FirstOrDefault(x => x.Type == ConstantValue.ClamisEmployeeId)?.Value;
+        /// <summary>
         /// Get Full Name from payload token.
         /// </summary>
         public string EmpName => _httpContext.User.Claims.FirstOrDefault(x => x.Type == ConstantValue.ClamisName)?.Value;

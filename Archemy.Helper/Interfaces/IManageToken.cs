@@ -10,5 +10,9 @@
         /// Get Full Name from payload token.
         /// </summary>
         string EmpName { get; }
+        /// <summary>
+        /// Get Employee id from payload token.
+        /// </summary>
+        string EmpId { get; }
     }
 }

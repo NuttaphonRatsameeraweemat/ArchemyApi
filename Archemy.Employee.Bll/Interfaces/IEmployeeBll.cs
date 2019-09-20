@@ -22,6 +22,6 @@ namespace Archemy.Employee.Bll.Interfaces
         /// The Method insert employee information.
         /// </summary>
         /// <param name="formData">The employee data.</param>
-        ResultViewModel Update(EmployeeViewModel formData);
+        ResultViewModel Edit(EmployeeViewModel formData);
     }
 }

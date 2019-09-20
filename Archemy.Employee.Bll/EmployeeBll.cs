@@ -76,7 +76,7 @@ namespace Archemy.Employee.Bll
         /// The Method insert employee information.
         /// </summary>
         /// <param name="formData">The employee data.</param>
-        public ResultViewModel Update(EmployeeViewModel formData)
+        public ResultViewModel Edit(EmployeeViewModel formData)
         {
             var result = new ResultViewModel();
             using (TransactionScope scope = new TransactionScope())

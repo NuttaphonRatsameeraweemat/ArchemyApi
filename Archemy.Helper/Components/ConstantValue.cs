@@ -8,6 +8,7 @@ namespace Archemy.Helper.Components
     {
         //Claims Type
         public const string ClamisName = "EmpName";
+        public const string ClamisEmployeeId = "EmpId";
         //Response Header Content Type Format
         public const string ContentTypeJson = "application/json";
         public const string BasicAuthentication = "BasicAuthentication";
