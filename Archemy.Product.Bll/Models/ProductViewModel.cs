@@ -28,7 +28,6 @@ namespace Archemy.Product.Bll.Models
     public class ProductImageViewModel
     {
         public string FileName { get; set; }
-        public string FileExtension { get; set; }
         public string FileContent { get; set; }
     }
 

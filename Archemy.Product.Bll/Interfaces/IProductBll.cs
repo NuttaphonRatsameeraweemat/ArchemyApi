@@ -37,5 +37,17 @@ namespace Archemy.Product.Bll.Interfaces
         /// <param name="id">The identity of Product.</param>
         /// <returns></returns>
         ResultViewModel Delete(int id);
+        /// <summary>
+        /// Write images file to server directory.
+        /// </summary>
+        /// <param name="imageList">The images model collection.</param>
+        /// <param name="productId">The images product identity.</param>
+        ResultViewModel SaveImages(IEnumerable<ProductImageViewModel> imageList, int productId);
+        /// <summary>
+        /// Get images from product id.
+        /// </summary>
+        /// <param name="id">The identity product.</param>
+        /// <returns></returns>
+        IEnumerable<ProductImageViewModel> GetProductImages(int id);
     }
 }

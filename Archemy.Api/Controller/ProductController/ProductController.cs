@@ -2,6 +2,8 @@
 using Archemy.Product.Bll.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Archemy.Api.Controller.ProductController
 {
@@ -56,6 +58,13 @@ namespace Archemy.Api.Controller.ProductController
             return Ok(_product.Save(model));
         }
 
+        [HttpGet]
+        [Route("GetProductImages")]
+        public IActionResult GetProductImages(int id)
+        {
+            return Ok(_product.GetProductImages(id));
+        }
+
         [HttpPost]
         [Route("Edit")]
         public IActionResult Edit([FromBody]ProductViewModel model)
@@ -68,6 +77,13 @@ namespace Archemy.Api.Controller.ProductController
         public IActionResult Delete(int id)
         {
             return Ok(_product.Delete(id));
+        }
+
+        [HttpPost]
+        [Route("UploadImages/{id}")]
+        public IActionResult UploadImages(int id, [FromBody]IEnumerable<ProductImageViewModel> model)
+        {
+            return Ok(_product.SaveImages(model, id));
         }
 
         #endregion

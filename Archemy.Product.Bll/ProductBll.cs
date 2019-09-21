@@ -5,7 +5,9 @@ using Archemy.Helper.Models;
 using Archemy.Product.Bll.Interfaces;
 using Archemy.Product.Bll.Models;
 using AutoMapper;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Transactions;
 
@@ -84,7 +86,9 @@ namespace Archemy.Product.Bll
             {
                 var product = _mapper.Map<ProductViewModel, Data.Pocos.Product>(model);
                 _unitOfWork.GetRepository<Data.Pocos.Product>().Add(product);
-                _unitOfWork.Complete(scope);
+                _unitOfWork.Complete();
+                this.SaveImages(model.ImageList, product.Id);
+                scope.Complete();
             }
             this.ReloadCacheProduct();
             return result;
@@ -130,6 +134,69 @@ namespace Archemy.Product.Bll
             }
             this.ReloadCacheProduct();
             return result;
+        }
+
+        /// <summary>
+        /// Write images file to server directory.
+        /// </summary>
+        /// <param name="imageList">The images model collection.</param>
+        /// <param name="productId">The images product identity.</param>
+        public ResultViewModel SaveImages(IEnumerable<ProductImageViewModel> imageList, int productId)
+        {
+            var result = new ResultViewModel();
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "Images", "Product", productId.ToString());
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            foreach (var item in imageList)
+            {
+                var file = Convert.FromBase64String(item.FileContent);
+                string savePath = Path.Combine(path, item.FileName);
+                File.WriteAllBytes(savePath, file);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Get images from product id.
+        /// </summary>
+        /// <param name="id">The identity product.</param>
+        /// <returns></returns>
+        public IEnumerable<ProductImageViewModel> GetProductImages(int id)
+        {
+            var result = new List<ProductImageViewModel>();
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "Images", "Product", id.ToString());
+            if (Directory.Exists(path))
+            {
+                string[] allfiles = Directory.GetFiles(path);
+                foreach (var item in allfiles)
+                {
+                    var fileByte = File.ReadAllBytes(item);
+                    result.Add(new ProductImageViewModel
+                    {
+                        FileName = Path.GetFileName(item),
+                        FileContent = Convert.ToBase64String(fileByte)
+                    });
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Get all files in directory.
+        /// </summary>
+        /// <param name="path">The directory path files.</param>
+        /// <returns></returns>
+        private string[] GetAllFileInDirectory(string path)
+        {
+            var result = new List<string>();
+            string[] allFile = Directory.GetFiles(path);
+            foreach (var item in allFile)
+            {
+                result.Add(Path.GetFileName(item));
+            }
+            return result.ToArray();
         }
 
         /// <summary>
