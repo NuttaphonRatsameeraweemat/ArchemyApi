@@ -97,7 +97,9 @@ namespace Archemy.Api.Extensions
         public static void ConfigureMasterDataBll(this IServiceCollection services)
         {
             services.AddScoped<IAccountTypeBll, AccountTypeBll>();
+            services.AddScoped<IAccountSubTypeBll, AccountSubTypeBll>();
             services.AddScoped<IAreaBll, AreaBll>();
+            services.AddScoped<IValueHelpBll, ValueHelpBll>();
         }
 
         /// <summary>

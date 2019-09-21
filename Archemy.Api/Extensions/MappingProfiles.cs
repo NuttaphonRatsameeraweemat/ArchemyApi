@@ -45,6 +45,8 @@ namespace Archemy.Api.Extensions
             CreateMap<Data.Pocos.AccountSubType, AccountSubTypeViewModel>();
             CreateMap<AreaViewModel, Data.Pocos.Area>();
             CreateMap<Data.Pocos.Area, AreaViewModel>();
+            CreateMap<ValueHelpViewModel, Data.Pocos.ValueHelp>();
+            CreateMap<Data.Pocos.ValueHelp, ValueHelpViewModel>();
         }
 
         /// <summary>
