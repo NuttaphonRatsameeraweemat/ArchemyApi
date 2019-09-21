@@ -8,6 +8,8 @@ using Archemy.Helper;
 using Archemy.Helper.Components;
 using Archemy.Helper.Interfaces;
 using Archemy.Helper.Models;
+using Archemy.MasterData.Bll;
+using Archemy.MasterData.Bll.Interfaces;
 using Archemy.Product.Bll;
 using Archemy.Product.Bll.Interfaces;
 using Microsoft.AspNetCore.Authentication;
@@ -86,6 +88,16 @@ namespace Archemy.Api.Extensions
         {
             services.AddScoped<IRegisterBll, RegisterBll>();
             services.AddScoped<IEmployeeBll, EmployeeBll>();
+        }
+
+        /// <summary>
+        /// Dependency Injection Business Logic Layer.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        public static void ConfigureMasterDataBll(this IServiceCollection services)
+        {
+            services.AddScoped<IAccountTypeBll, AccountTypeBll>();
+            services.AddScoped<IAreaBll, AreaBll>();
         }
 
         /// <summary>

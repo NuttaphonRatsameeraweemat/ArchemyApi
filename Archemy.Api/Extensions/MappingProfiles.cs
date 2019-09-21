@@ -1,4 +1,5 @@
 ﻿using Archemy.Employee.Bll.Models;
+using Archemy.MasterData.Bll.Models;
 using Archemy.Product.Bll.Models;
 using AutoMapper;
 
@@ -15,6 +16,7 @@ namespace Archemy.Api.Extensions
         {
             this.MappingEmployeeModel();
             this.MappingProductModel();
+            this.MappingMasterDataModel();
         }
 
         #endregion
@@ -30,6 +32,17 @@ namespace Archemy.Api.Extensions
             CreateMap<Data.Pocos.Employee, RegisterViewModel>();
             CreateMap<EmployeeViewModel, Data.Pocos.Employee>();
             CreateMap<Data.Pocos.Employee, EmployeeViewModel>();
+        }
+
+        /// <summary>
+        /// Create auto mapper profile master data model.
+        /// </summary>
+        public void MappingMasterDataModel()
+        {
+            CreateMap<AccountTypeViewModel, Data.Pocos.AccountType>();
+            CreateMap<Data.Pocos.AccountType, AccountTypeViewModel>();
+            CreateMap<AreaViewModel, Data.Pocos.Area>();
+            CreateMap<Data.Pocos.Area, AreaViewModel>();
         }
 
         /// <summary>

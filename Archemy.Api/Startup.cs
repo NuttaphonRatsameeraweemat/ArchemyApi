@@ -30,6 +30,7 @@ namespace Archemy.Api
             services.ConfigureAuthenticationBll();
             services.ConfigureProductBll();
             services.ConfigureEmployeeBll();
+            services.ConfigureMasterDataBll();
             services.ConfigureComponent();
             services.ConfigureMvc();
             services.ConfigureCors();
