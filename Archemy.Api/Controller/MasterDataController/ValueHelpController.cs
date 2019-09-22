@@ -42,6 +42,13 @@ namespace Archemy.Api.Controller.MasterDataController
             return Ok(_valueHelp.Get(ConstantValue.ValueTypeEmployeeType));
         }
 
+        [HttpGet]
+        [Route("GetAccountStatus")]
+        public IActionResult GetAccountStatus()
+        {
+            return Ok(_valueHelp.Get(ConstantValue.ValueTypeAccountStatus));
+        }
+
         #endregion
 
     }

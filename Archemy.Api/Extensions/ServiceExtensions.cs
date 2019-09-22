@@ -1,4 +1,6 @@
-﻿using Archemy.Authentication.Bll;
+﻿using Archemy.Account.Bll;
+using Archemy.Account.Bll.Interfaces;
+using Archemy.Authentication.Bll;
 using Archemy.Authentication.Bll.Interfaces;
 using Archemy.Data;
 using Archemy.Data.Repository.Interfaces;
@@ -100,6 +102,15 @@ namespace Archemy.Api.Extensions
             services.AddScoped<IAccountSubTypeBll, AccountSubTypeBll>();
             services.AddScoped<IAreaBll, AreaBll>();
             services.AddScoped<IValueHelpBll, ValueHelpBll>();
+        }
+
+        /// <summary>
+        /// Dependency Injection Business Logic Layer.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        public static void ConfigureAccountBll(this IServiceCollection services)
+        {
+            services.AddScoped<IAccountBll, AccountBll>();
         }
 
         /// <summary>

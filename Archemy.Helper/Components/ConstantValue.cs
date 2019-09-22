@@ -18,6 +18,7 @@ namespace Archemy.Helper.Components
         public const string EmpTemplate = "{0} {1}";
         //ValueType
         public const string ValueTypeEmployeeType = "EmployeeType";
+        public const string ValueTypeAccountStatus = "AccountStatus";
         //Regular expresstion format date
         public const string RegexDateFormat = @"^[0-9]{4}-[0-9]{2}-[0-9]{2}$";
         public const string RegexYearFormat = @"^[0-9]{4}$";

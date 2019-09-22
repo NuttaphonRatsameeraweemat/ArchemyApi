@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Archemy.Data\Archemy.Data.csproj" />
+    <ProjectReference Include="..\Archemy.Helper\Archemy.Helper.csproj" />
+  </ItemGroup>
+
+</Project>

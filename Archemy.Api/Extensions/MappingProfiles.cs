@@ -1,4 +1,5 @@
-﻿using Archemy.Employee.Bll.Models;
+﻿using Archemy.Account.Bll.Models;
+using Archemy.Employee.Bll.Models;
 using Archemy.MasterData.Bll.Models;
 using Archemy.Product.Bll.Models;
 using AutoMapper;
@@ -58,6 +59,15 @@ namespace Archemy.Api.Extensions
             CreateMap<Data.Pocos.Product, ProductViewModel>();
             CreateMap<ProductTypeViewModel, Data.Pocos.ProductType>();
             CreateMap<Data.Pocos.ProductType, ProductTypeViewModel>();
+        }
+
+        /// <summary>
+        /// Create auto mapper profile account model.
+        /// </summary>
+        public void MappingAccountModel()
+        {
+            CreateMap<AccountViewModel, Data.Pocos.Account>();
+            CreateMap<Data.Pocos.Account, AccountViewModel>();
         }
 
         #endregion
