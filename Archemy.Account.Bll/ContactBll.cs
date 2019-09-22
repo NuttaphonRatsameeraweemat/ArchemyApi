@@ -82,7 +82,7 @@ namespace Archemy.Account.Bll
             var result = new ResultViewModel();
             using (TransactionScope scope = new TransactionScope())
             {
-                var contact = _unitOfWork.GetRepository<Data.Pocos.Contact>().GetCache(x => x.Id == model.Id).FirstOrDefault();
+                var contact = _unitOfWork.GetRepository<Data.Pocos.Contact>().GetById(model.Id);
                 contact.ContactName = model.ContactName;
                 contact.ContactNumber = model.ContactNumber;
                 contact.Position = model.Position;

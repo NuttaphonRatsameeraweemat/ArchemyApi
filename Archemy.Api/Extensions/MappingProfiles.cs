@@ -70,6 +70,8 @@ namespace Archemy.Api.Extensions
             CreateMap<Data.Pocos.Account, AccountViewModel>();
             CreateMap<ContactViewModel, Data.Pocos.Contact>();
             CreateMap<Data.Pocos.Contact, ContactViewModel>();
+            CreateMap<ContractViewModel, Data.Pocos.Contract>();
+            CreateMap<Data.Pocos.Contract, ContractViewModel>();
         }
 
         #endregion
