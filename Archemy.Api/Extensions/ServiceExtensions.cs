@@ -111,6 +111,7 @@ namespace Archemy.Api.Extensions
         public static void ConfigureAccountBll(this IServiceCollection services)
         {
             services.AddScoped<IAccountBll, AccountBll>();
+            services.AddScoped<IContactBll, ContactBll>();
         }
 
         /// <summary>
