@@ -1,6 +1,7 @@
 ﻿using Archemy.Helper.Components;
 using Archemy.Helper.Interfaces;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Linq;
 
 namespace Archemy.Helper
@@ -39,7 +40,7 @@ namespace Archemy.Helper
         /// <summary>
         /// Get Employee id from payload token.
         /// </summary>
-        public string EmpId => _httpContext.User.Claims.FirstOrDefault(x => x.Type == ConstantValue.ClamisEmployeeId)?.Value;
+        public int EmpId => Convert.ToInt32(_httpContext.User.Claims.FirstOrDefault(x => x.Type == ConstantValue.ClamisEmployeeId)?.Value);
         /// <summary>
         /// Get Full Name from payload token.
         /// </summary>

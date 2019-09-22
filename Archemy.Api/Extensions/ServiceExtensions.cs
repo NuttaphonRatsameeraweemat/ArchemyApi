@@ -112,6 +112,8 @@ namespace Archemy.Api.Extensions
         {
             services.AddScoped<IAccountBll, AccountBll>();
             services.AddScoped<IContactBll, ContactBll>();
+            services.AddScoped<IContractBll, ContractBll>();
+            services.AddScoped<IActivityTimeLineBll, ActivityTimeLineBll>();
         }
 
         /// <summary>

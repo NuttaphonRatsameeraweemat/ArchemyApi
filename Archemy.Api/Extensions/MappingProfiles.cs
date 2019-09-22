@@ -72,6 +72,8 @@ namespace Archemy.Api.Extensions
             CreateMap<Data.Pocos.Contact, ContactViewModel>();
             CreateMap<ContractViewModel, Data.Pocos.Contract>();
             CreateMap<Data.Pocos.Contract, ContractViewModel>();
+            CreateMap<ActivityTimeLineViewModel, Data.Pocos.ActivityTimeLine>();
+            CreateMap<Data.Pocos.ActivityTimeLine, ActivityTimeLineViewModel>();
         }
 
         #endregion

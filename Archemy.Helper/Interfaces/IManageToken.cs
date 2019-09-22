@@ -13,6 +13,6 @@
         /// <summary>
         /// Get Employee id from payload token.
         /// </summary>
-        string EmpId { get; }
+        int EmpId { get; }
     }
 }
