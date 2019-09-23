@@ -61,7 +61,7 @@ namespace Archemy.Account.Bll
         public IEnumerable<PlanViewModel> GetList(int accountId)
         {
             var result = new List<PlanViewModel>();
-            var data = _unitOfWork.GetRepository<Plan>().Get(x => x.AccountId == accountId);
+            var data = _unitOfWork.GetRepository<Plan>().Get(x => x.AccountId == accountId, x => x.OrderBy(y => y.StartDate));
             var empList = _unitOfWork.GetRepository<Employee>().GetCache();
 
             foreach (var item in data)

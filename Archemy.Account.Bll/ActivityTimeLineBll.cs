@@ -60,7 +60,7 @@ namespace Archemy.Account.Bll
         public IEnumerable<ActivityTimeLineViewModel> GetList(int accountId)
         {
             var result = new List<ActivityTimeLineViewModel>();
-            var data = _unitOfWork.GetRepository<ActivityTimeLine>().Get(x => x.AccountId == accountId);
+            var data = _unitOfWork.GetRepository<ActivityTimeLine>().Get(x => x.AccountId == accountId, x => x.OrderByDescending(y => y.ActivityDate));
             var empList = _unitOfWork.GetRepository<Employee>().GetCache();
 
             foreach (var item in data)
