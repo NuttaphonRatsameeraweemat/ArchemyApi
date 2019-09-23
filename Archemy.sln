@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archemy.MasterData.Bll", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archemy.Account.Bll", "Archemy.Account.Bll\Archemy.Account.Bll.csproj", "{1941480F-84A8-4B68-BD66-8843C8AD43BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archemy.Order.Bll", "Archemy.Order.Bll\Archemy.Order.Bll.csproj", "{33B5D528-9864-4C63-BD54-0EB57AE2E1D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{1941480F-84A8-4B68-BD66-8843C8AD43BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1941480F-84A8-4B68-BD66-8843C8AD43BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1941480F-84A8-4B68-BD66-8843C8AD43BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33B5D528-9864-4C63-BD54-0EB57AE2E1D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33B5D528-9864-4C63-BD54-0EB57AE2E1D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33B5D528-9864-4C63-BD54-0EB57AE2E1D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33B5D528-9864-4C63-BD54-0EB57AE2E1D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +75,7 @@ Global
 		{2E6D7199-5A45-4536-8E24-2511303A930D} = {C1FB2774-E053-4FE7-A953-F78CF5E93768}
 		{8C740A19-BC9E-4E64-BB4B-C577C69BEC63} = {C1FB2774-E053-4FE7-A953-F78CF5E93768}
 		{1941480F-84A8-4B68-BD66-8843C8AD43BC} = {C1FB2774-E053-4FE7-A953-F78CF5E93768}
+		{33B5D528-9864-4C63-BD54-0EB57AE2E1D5} = {C1FB2774-E053-4FE7-A953-F78CF5E93768}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {66B7397B-F327-4E87-B184-CD4AB828EC68}

@@ -18,6 +18,7 @@ namespace Archemy.Api.Extensions
             this.MappingEmployeeModel();
             this.MappingProductModel();
             this.MappingMasterDataModel();
+            this.MappingAccountModel();
         }
 
         #endregion
@@ -74,6 +75,8 @@ namespace Archemy.Api.Extensions
             CreateMap<Data.Pocos.Contract, ContractViewModel>();
             CreateMap<ActivityTimeLineViewModel, Data.Pocos.ActivityTimeLine>();
             CreateMap<Data.Pocos.ActivityTimeLine, ActivityTimeLineViewModel>();
+            CreateMap<PlanViewModel, Data.Pocos.Plan>();
+            CreateMap<Data.Pocos.Plan, PlanViewModel>();
         }
 
         #endregion

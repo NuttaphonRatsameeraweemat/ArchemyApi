@@ -8,6 +8,8 @@ namespace Archemy.Account.Bll.Models
     {
         public int Id { get; set; }
         public int AccountId { get; set; }
+        public string ActivityBy { get; set; }
+        public string ActivityDate { get; set; }
         public string ActivityComment { get; set; }
     }
 }

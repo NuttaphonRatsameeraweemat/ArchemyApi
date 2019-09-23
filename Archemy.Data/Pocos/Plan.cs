@@ -14,5 +14,7 @@ namespace Archemy.Data.Pocos
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public int? CreateBy { get; set; }
+        [StringLength(200)]
+        public string PlanName { get; set; }
     }
 }

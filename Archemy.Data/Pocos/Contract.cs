@@ -18,5 +18,7 @@ namespace Archemy.Data.Pocos
         public string Contract1 { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+        [StringLength(10)]
+        public string Status { get; set; }
     }
 }
