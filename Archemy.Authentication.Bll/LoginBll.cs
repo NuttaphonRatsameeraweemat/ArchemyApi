@@ -122,6 +122,7 @@ namespace Archemy.Authentication.Bll
             };
             _identity = new ClaimsIdentity();
             _identity.AddClaim(new Claim(ClaimTypes.Name, data.Email));
+            _identity.AddClaim(new Claim(ConstantValue.ClamisEmployeeId, data.Id.ToString()));
             _identity.AddClaim(new Claim(ConstantValue.ClamisName, string.Format(ConstantValue.EmpTemplate, data.FirstName, data.LastName)));
             return result;
         }

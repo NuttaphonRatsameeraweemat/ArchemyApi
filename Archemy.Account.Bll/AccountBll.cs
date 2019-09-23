@@ -124,7 +124,7 @@ namespace Archemy.Account.Bll
                 _unitOfWork.Complete(scope);
             }
             this.ReloadCacheAccount();
-            _activityTimeLine.Save(new ActivityTimeLineViewModel { AccountId = model.Id, ActivityComment = ConstantValue.ActCreateOrder });
+            _activityTimeLine.Save(new ActivityTimeLineViewModel { AccountId = model.Id, ActivityComment = ConstantValue.ActEditAccount });
             return result;
         }
 
