@@ -138,6 +138,35 @@ namespace Archemy.Order.Bll
             _unitOfWork.GetRepository<OrderDetail>().AddRange(orderItems);
         }
 
+        /// <summary>
+        /// Get product price contract by account id.
+        /// </summary>
+        /// <param name="accountId">The identity account.</param>
+        /// <returns></returns>
+        public IEnumerable<OrderDetailViewModel> GetProductContract(int accountId)
+        {
+            var result = new List<OrderDetailViewModel>();
+            var productList = _unitOfWork.GetRepository<Product>().GetCache();
+            var contract = _unitOfWork.GetRepository<Contract>().Get(x => x.AccountId == accountId &&
+                                                                          x.StartDate.Value.Date >= DateTime.Now.Date &&
+                                                                          x.EndDate.Value.Date <= DateTime.Now.Date).FirstOrDefault();
+
+            var contractItems = _unitOfWork.GetRepository<ContractItem>().Get(x => x.ContractId == contract.Id);
+
+            foreach (var subItem in contractItems)
+            {
+                var temp = productList.FirstOrDefault(x => x.Id == subItem.ProductId);
+                result.Add(new OrderDetailViewModel
+                {
+                    ProductId = subItem.ProductId.Value,
+                    ProductName = temp?.ProductName,
+                    PerPrince = subItem.ContractPrince.Value
+                });
+            }
+
+            return result;
+        }
+
         #endregion
 
     }

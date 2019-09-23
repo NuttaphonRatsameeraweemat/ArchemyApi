@@ -20,6 +20,7 @@
     <ProjectReference Include="..\Archemy.Employee.Bll\Archemy.Employee.Bll.csproj" />
     <ProjectReference Include="..\Archemy.Helper\Archemy.Helper.csproj" />
     <ProjectReference Include="..\Archemy.MasterData.Bll\Archemy.MasterData.Bll.csproj" />
+    <ProjectReference Include="..\Archemy.Order.Bll\Archemy.Order.Bll.csproj" />
     <ProjectReference Include="..\Archemy.Product.Bll\Archemy.Product.Bll.csproj" />
   </ItemGroup>
 

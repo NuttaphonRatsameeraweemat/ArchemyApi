@@ -32,6 +32,7 @@ namespace Archemy.Api
             services.ConfigureEmployeeBll();
             services.ConfigureMasterDataBll();
             services.ConfigureAccountBll();
+            services.ConfigureOrderBll();
             services.ConfigureComponent();
             services.ConfigureMvc();
             services.ConfigureCors();

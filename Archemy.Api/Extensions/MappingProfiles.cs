@@ -1,6 +1,7 @@
 ﻿using Archemy.Account.Bll.Models;
 using Archemy.Employee.Bll.Models;
 using Archemy.MasterData.Bll.Models;
+using Archemy.Order.Bll.Models;
 using Archemy.Product.Bll.Models;
 using AutoMapper;
 
@@ -19,6 +20,7 @@ namespace Archemy.Api.Extensions
             this.MappingProductModel();
             this.MappingMasterDataModel();
             this.MappingAccountModel();
+            this.MappingOrderModel();
         }
 
         #endregion
@@ -77,6 +79,15 @@ namespace Archemy.Api.Extensions
             CreateMap<Data.Pocos.ActivityTimeLine, ActivityTimeLineViewModel>();
             CreateMap<PlanViewModel, Data.Pocos.Plan>();
             CreateMap<Data.Pocos.Plan, PlanViewModel>();
+        }
+
+        /// <summary>
+        /// Create auto mapper profile order model.
+        /// </summary>
+        public void MappingOrderModel()
+        {
+            CreateMap<OrderViewModel, Data.Pocos.Order>();
+            CreateMap<Data.Pocos.Order, OrderViewModel>();
         }
 
         #endregion

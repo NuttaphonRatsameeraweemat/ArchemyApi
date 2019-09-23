@@ -12,6 +12,8 @@ using Archemy.Helper.Interfaces;
 using Archemy.Helper.Models;
 using Archemy.MasterData.Bll;
 using Archemy.MasterData.Bll.Interfaces;
+using Archemy.Order.Bll;
+using Archemy.Order.Bll.Interfaces;
 using Archemy.Product.Bll;
 using Archemy.Product.Bll.Interfaces;
 using Microsoft.AspNetCore.Authentication;
@@ -115,6 +117,15 @@ namespace Archemy.Api.Extensions
             services.AddScoped<IContractBll, ContractBll>();
             services.AddScoped<IPlanBll, PlanBll>();
             services.AddScoped<IActivityTimeLineBll, ActivityTimeLineBll>();
+        }
+
+        /// <summary>
+        /// Dependency Injection Business Logic Layer.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        public static void ConfigureOrderBll(this IServiceCollection services)
+        {
+            services.AddScoped<IOrderBll, OrderBll>();
         }
 
         /// <summary>
