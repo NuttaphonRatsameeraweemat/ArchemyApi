@@ -1,5 +1,7 @@
-﻿using Archemy.Data.Pocos;
+﻿using Archemy.Account.Bll.Interfaces;
+using Archemy.Data.Pocos;
 using Archemy.Data.Repository.Interfaces;
+using Archemy.Helper.Components;
 using Archemy.Helper.Interfaces;
 using Archemy.Helper.Models;
 using Archemy.Order.Bll.Interfaces;
@@ -30,6 +32,10 @@ namespace Archemy.Order.Bll
         /// The ClaimsIdentity in token management.
         /// </summary>
         private readonly IManageToken _token;
+        /// <summary>
+        /// The activityTimeLine manager provides activityTimeLine functionality.
+        /// </summary>
+        private readonly IActivityTimeLineBll _activityTimeLine;
 
         #endregion
 
@@ -40,11 +46,12 @@ namespace Archemy.Order.Bll
         /// </summary>
         /// <param name="unitOfWork">The utilities unit of work.</param>
         /// <param name="mapper">The auto mapper.</param>
-        public OrderBll(IUnitOfWork unitOfWork, IMapper mapper, IManageToken token)
+        public OrderBll(IUnitOfWork unitOfWork, IMapper mapper, IManageToken token, IActivityTimeLineBll activityTimeLine)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _token = token;
+            _activityTimeLine = activityTimeLine;
         }
 
         #endregion
@@ -74,6 +81,11 @@ namespace Archemy.Order.Bll
             return data;
         }
 
+        /// <summary>
+        /// Get order detail items information.
+        /// </summary>
+        /// <param name="orderId">The order identity.</param>
+        /// <returns></returns>
         private IEnumerable<OrderDetailViewModel> GetOrderItems(int orderId)
         {
             var result = new List<OrderDetailViewModel>();
@@ -86,72 +98,44 @@ namespace Archemy.Order.Bll
                 {
                     Id = item.Id,
                     Prince = item.Prince.Value,
-                    PerPrince = item.PerPrince.Value
+                    PerPrince = item.PerPrince.Value,
+                    ProductId = item.ProductId.Value,
+                    ProductName = temp?.ProductName,
+                    Quantity = item.Quantity.Value
                 });
             }
             return null;
         }
 
         /// <summary>
-        /// Insert new AccountType item.
+        /// Insert new order item.
         /// </summary>
-        /// <param name="model">The AccountType information value.</param>
+        /// <param name="model">The order information value.</param>
         /// <returns></returns>
         public ResultViewModel Save(OrderViewModel model)
         {
             var result = new ResultViewModel();
             using (TransactionScope scope = new TransactionScope())
             {
-                var accountType = _mapper.Map<OrderViewModel, AccountType>(model);
-                _unitOfWork.GetRepository<AccountType>().Add(accountType);
+                var order = _mapper.Map<OrderViewModel, Data.Pocos.Order>(model);
+                _unitOfWork.GetRepository<Data.Pocos.Order>().Add(order);
                 _unitOfWork.Complete(scope);
             }
-            this.ReloadCacheAccountType();
+            _activityTimeLine.Save(new Account.Bll.Models.ActivityTimeLineViewModel { AccountId = model.AccountId, ActivityComment = ConstantValue.ActCreateOrder });
             return result;
         }
 
         /// <summary>
-        /// Update AccountType item.
+        /// Insert new order items.
         /// </summary>
-        /// <param name="model">The AccountType information value.</param>
+        /// <param name="orderId">The order identity.</param>
+        /// <param name="model">The order item information value.</param>
         /// <returns></returns>
-        public ResultViewModel Edit(OrderViewModel model)
+        private void SaveItem(int orderId, IEnumerable<OrderDetailViewModel> model)
         {
-            var result = new ResultViewModel();
-            using (TransactionScope scope = new TransactionScope())
-            {
-                var accountType = _unitOfWork.GetRepository<AccountType>().GetCache(x => x.Id == model.Id).FirstOrDefault();
-                _unitOfWork.GetRepository<Data.Pocos.AccountType>().Update(accountType);
-                _unitOfWork.Complete(scope);
-            }
-            this.ReloadCacheAccountType();
-            return result;
-        }
-
-        /// <summary>
-        /// Remove AccountType item.
-        /// </summary>
-        /// <param name="id">The identity of AccountType.</param>
-        /// <returns></returns>
-        public ResultViewModel Delete(int id)
-        {
-            var result = new ResultViewModel();
-            using (TransactionScope scope = new TransactionScope())
-            {
-                var accountType = _unitOfWork.GetRepository<AccountType>().GetById(id);
-                _unitOfWork.GetRepository<AccountType>().Remove(accountType);
-                _unitOfWork.Complete(scope);
-            }
-            this.ReloadCacheAccountType();
-            return result;
-        }
-
-        /// <summary>
-        /// Reload Cache when AccountType is change.
-        /// </summary>
-        private void ReloadCacheAccountType()
-        {
-            _unitOfWork.GetRepository<AccountType>().ReCache();
+            var orderItems = _mapper.Map<IEnumerable<OrderDetailViewModel>, IEnumerable<OrderDetail>>(model);
+            orderItems.Select(c => { c.OrderId = orderId; return c; }).ToList();
+            _unitOfWork.GetRepository<OrderDetail>().AddRange(orderItems);
         }
 
         #endregion

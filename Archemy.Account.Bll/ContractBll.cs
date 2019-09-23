@@ -25,6 +25,10 @@ namespace Archemy.Account.Bll
         /// The auto mapper.
         /// </summary>
         private readonly IMapper _mapper;
+        /// <summary>
+        /// The activityTimeLine manager provides activityTimeLine functionality.
+        /// </summary>
+        private readonly IActivityTimeLineBll _activityTimeLine;
 
         #endregion
 
@@ -35,10 +39,11 @@ namespace Archemy.Account.Bll
         /// </summary>
         /// <param name="unitOfWork">The utilities unit of work.</param>
         /// <param name="mapper">The auto mapper.</param>
-        public ContractBll(IUnitOfWork unitOfWork, IMapper mapper)
+        public ContractBll(IUnitOfWork unitOfWork, IMapper mapper, IActivityTimeLineBll activityTimeLine)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _activityTimeLine = activityTimeLine;
         }
 
         #endregion
@@ -126,6 +131,7 @@ namespace Archemy.Account.Bll
                 this.SaveItem(contract.Id, model.ContractItems);
                 _unitOfWork.Complete(scope);
             }
+            _activityTimeLine.Save(new ActivityTimeLineViewModel { AccountId = model.AccountId.Value, ActivityComment = ConstantValue.ActCreateContract });
             return result;
         }
 
@@ -162,6 +168,7 @@ namespace Archemy.Account.Bll
                 this.EditItem(contract.Id, model.ContractItems);
                 _unitOfWork.Complete(scope);
             }
+            _activityTimeLine.Save(new ActivityTimeLineViewModel { AccountId = model.AccountId.Value, ActivityComment = ConstantValue.ActEditContract });
             return result;
         }
 

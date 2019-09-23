@@ -25,6 +25,12 @@ namespace Archemy.Helper.Components
         //Contract Status
         public const string ContractStatusSaveDraft = "SaveDraft";
         public const string ContractStatusSaveSubmit = "Submit";
+        //Acitivity Timeline system log.
+        public const string ActCreateAccount = "Account has been created.";
+        public const string ActEditAccount = "Account infomation change.";
+        public const string ActCreateContract = "Contract has been created.";
+        public const string ActEditContract = "Contract has been change.";
+        public const string ActCreateOrder = "Order has been created.";
         //Error Log Messages.
         public const string HrEmployeeArgumentNullExceptionMessage = "The {0} hasn't in HrEmployee Table.";
         public const string HttpRequestFailedMessage = "Response StatusCode {0}, {1}";

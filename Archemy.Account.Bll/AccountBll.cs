@@ -1,6 +1,7 @@
 ﻿using Archemy.Account.Bll.Interfaces;
 using Archemy.Account.Bll.Models;
 using Archemy.Data.Repository.Interfaces;
+using Archemy.Helper.Components;
 using Archemy.Helper.Models;
 using AutoMapper;
 using System.Collections.Generic;
@@ -22,6 +23,10 @@ namespace Archemy.Account.Bll
         /// The auto mapper.
         /// </summary>
         private readonly IMapper _mapper;
+        /// <summary>
+        /// The activityTimeLine manager provides activityTimeLine functionality.
+        /// </summary>
+        private readonly IActivityTimeLineBll _activityTimeLine;
 
         #endregion
 
@@ -32,10 +37,11 @@ namespace Archemy.Account.Bll
         /// </summary>
         /// <param name="unitOfWork">The utilities unit of work.</param>
         /// <param name="mapper">The auto mapper.</param>
-        public AccountBll(IUnitOfWork unitOfWork, IMapper mapper)
+        public AccountBll(IUnitOfWork unitOfWork, IMapper mapper, IActivityTimeLineBll activityTimeLine)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _activityTimeLine = activityTimeLine;
         }
 
         #endregion
@@ -83,13 +89,16 @@ namespace Archemy.Account.Bll
         public ResultViewModel Save(AccountViewModel model)
         {
             var result = new ResultViewModel();
+            int id = 0;
             using (TransactionScope scope = new TransactionScope())
             {
                 var account = _mapper.Map<AccountViewModel, Data.Pocos.Account>(model);
                 _unitOfWork.GetRepository<Data.Pocos.Account>().Add(account);
                 _unitOfWork.Complete(scope);
+                id = account.Id;
             }
             this.ReloadCacheAccount();
+            _activityTimeLine.Save(new ActivityTimeLineViewModel { AccountId = id, ActivityComment = ConstantValue.ActCreateAccount });
             return result;
         }
 
@@ -115,6 +124,7 @@ namespace Archemy.Account.Bll
                 _unitOfWork.Complete(scope);
             }
             this.ReloadCacheAccount();
+            _activityTimeLine.Save(new ActivityTimeLineViewModel { AccountId = model.Id, ActivityComment = ConstantValue.ActCreateOrder });
             return result;
         }
 
