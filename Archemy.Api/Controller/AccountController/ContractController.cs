@@ -1,5 +1,7 @@
 ﻿using Archemy.Account.Bll.Interfaces;
 using Archemy.Account.Bll.Models;
+using Archemy.Helper;
+using Archemy.Helper.Components;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -54,17 +56,38 @@ namespace Archemy.Api.Controller.AccountController
         }
 
         [HttpPost]
-        [Route("Save")]
+        [Route("SaveDraft")]
         public IActionResult Save([FromBody]ContractViewModel model)
         {
-            return Ok(_contract.Save(model));
+            return Ok(_contract.Save(model, ConstantValue.ContractStatusSaveDraft));
+        }
+
+        [HttpPost]
+        [Route("Submit")]
+        public IActionResult Submit([FromBody]ContractViewModel model)
+        {
+            IActionResult response;
+            if (_contract.IsSubmit(model.Id))
+            {
+                response = BadRequest(UtilityService.InitialResultError(MessageValue.ContractStatusSubmit, (int)System.Net.HttpStatusCode.BadRequest));
+            }
+            if (_contract.IsNotNull(model.Id))
+            {
+                response = Ok(_contract.Edit(model, ConstantValue.ContractStatusSaveSubmit));
+            }
+            else response = Ok(_contract.Save(model, ConstantValue.ContractStatusSaveSubmit));
+            return response;
         }
 
         [HttpPost]
         [Route("Edit")]
         public IActionResult Edit([FromBody]ContractViewModel model)
         {
-            return Ok(_contract.Edit(model));
+            if (_contract.IsSubmit(model.Id))
+            {
+                return BadRequest(UtilityService.InitialResultError(MessageValue.ContractStatusSubmit, (int)System.Net.HttpStatusCode.BadRequest));
+            }
+            return Ok(_contract.Edit(model, ConstantValue.ContractStatusSaveDraft));
         }
 
         [HttpPost]

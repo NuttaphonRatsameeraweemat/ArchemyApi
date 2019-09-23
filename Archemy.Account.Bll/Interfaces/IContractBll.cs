@@ -14,6 +14,18 @@ namespace Archemy.Account.Bll.Interfaces
         /// <returns></returns>
         IEnumerable<ContractViewModel> GetList(int accountId);
         /// <summary>
+        /// Validate contract is submit or saveDraft.
+        /// </summary>
+        /// <param name="contractId"></param>
+        /// <returns></returns>
+        bool IsSubmit(int contractId);
+        /// <summary>
+        /// Validate contract is null or not.
+        /// </summary>
+        /// <param name="contractId"></param>
+        /// <returns></returns>
+        bool IsNotNull(int contractId);
+        /// <summary>
         /// Get Detail of Contract item.
         /// </summary>
         /// <param name="id">The identity of Contract.</param>
@@ -24,13 +36,13 @@ namespace Archemy.Account.Bll.Interfaces
         /// </summary>
         /// <param name="model">The Contract information value.</param>
         /// <returns></returns>
-        ResultViewModel Save(ContractViewModel model);
+        ResultViewModel Save(ContractViewModel model, string status);
         /// <summary>
         /// Update Contract item.
         /// </summary>
         /// <param name="model">The ContractType information value.</param>
         /// <returns></returns>
-        ResultViewModel Edit(ContractViewModel model);
+        ResultViewModel Edit(ContractViewModel model, string status);
         /// <summary>
         /// Remove Contract item.
         /// </summary>

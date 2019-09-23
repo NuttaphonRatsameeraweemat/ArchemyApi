@@ -1,6 +1,7 @@
 ﻿using Archemy.Account.Bll.Interfaces;
 using Archemy.Account.Bll.Models;
 using Archemy.Data.Repository.Interfaces;
+using Archemy.Helper.Components;
 using Archemy.Helper.Models;
 using AutoMapper;
 using System;
@@ -77,16 +78,49 @@ namespace Archemy.Account.Bll
         }
 
         /// <summary>
+        /// Validate contract is submit or saveDraft.
+        /// </summary>
+        /// <param name="contractId"></param>
+        /// <returns></returns>
+        public bool IsSubmit(int contractId)
+        {
+            bool result = false;
+            var data = _unitOfWork.GetRepository<Data.Pocos.Contract>().GetById(contractId);
+            if (data.Status == ConstantValue.ContractStatusSaveSubmit)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Validate contract is null or not.
+        /// </summary>
+        /// <param name="contractId"></param>
+        /// <returns></returns>
+        public bool IsNotNull(int contractId)
+        {
+            bool result = false;
+            var data = _unitOfWork.GetRepository<Data.Pocos.Contract>().GetById(contractId);
+            if (data != null)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        /// <summary>
         /// Insert new Contract item.
         /// </summary>
         /// <param name="model">The Contract information value.</param>
         /// <returns></returns>
-        public ResultViewModel Save(ContractViewModel model)
+        public ResultViewModel Save(ContractViewModel model, string status)
         {
             var result = new ResultViewModel();
             using (TransactionScope scope = new TransactionScope())
             {
                 var contract = _mapper.Map<ContractViewModel, Data.Pocos.Contract>(model);
+                contract.Status = status;
                 _unitOfWork.GetRepository<Data.Pocos.Contract>().Add(contract);
                 _unitOfWork.Complete();
                 this.SaveItem(contract.Id, model.ContractItems);
@@ -113,7 +147,7 @@ namespace Archemy.Account.Bll
         /// </summary>
         /// <param name="model">The ContractType information value.</param>
         /// <returns></returns>
-        public ResultViewModel Edit(ContractViewModel model)
+        public ResultViewModel Edit(ContractViewModel model, string status)
         {
             var result = new ResultViewModel();
             using (TransactionScope scope = new TransactionScope())
@@ -123,6 +157,7 @@ namespace Archemy.Account.Bll
                 contract.MainContract = model.MainContract;
                 contract.StartDate = model.StartDate;
                 contract.EndDate = model.EndDate;
+                contract.Status = status;
                 _unitOfWork.GetRepository<Data.Pocos.Contract>().Update(contract);
                 this.EditItem(contract.Id, model.ContractItems);
                 _unitOfWork.Complete(scope);

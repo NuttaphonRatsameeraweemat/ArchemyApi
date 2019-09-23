@@ -22,6 +22,9 @@ namespace Archemy.Helper.Components
         //Regular expresstion format date
         public const string RegexDateFormat = @"^[0-9]{4}-[0-9]{2}-[0-9]{2}$";
         public const string RegexYearFormat = @"^[0-9]{4}$";
+        //Contract Status
+        public const string ContractStatusSaveDraft = "SaveDraft";
+        public const string ContractStatusSaveSubmit = "Submit";
         //Error Log Messages.
         public const string HrEmployeeArgumentNullExceptionMessage = "The {0} hasn't in HrEmployee Table.";
         public const string HttpRequestFailedMessage = "Response StatusCode {0}, {1}";

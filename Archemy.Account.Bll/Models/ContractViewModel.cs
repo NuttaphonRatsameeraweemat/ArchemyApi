@@ -21,6 +21,7 @@ namespace Archemy.Account.Bll.Models
         public string Contract1 { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+        public string Status { get; set; }
 
         public List<ContractItemViewModel> ContractItems { get; set; }
     }
