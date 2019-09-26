@@ -59,12 +59,14 @@ namespace Archemy.Account.Bll
             var areaList = _unitOfWork.GetRepository<Data.Pocos.Area>().GetCache();
             var accTypeList = _unitOfWork.GetRepository<Data.Pocos.AccountType>().GetCache();
             var accSubTypeList = _unitOfWork.GetRepository<Data.Pocos.AccountSubType>().GetCache();
+            var valueHelp = _unitOfWork.GetRepository<Data.Pocos.ValueHelp>().GetCache();
 
             foreach (var item in data)
             {
                 item.AreaName = areaList.FirstOrDefault(x => x.Id == item.AreaId)?.AreaName;
                 item.TypeName = accTypeList.FirstOrDefault(x => x.Id == item.TypeId)?.TypeName;
                 item.SubTypeName = accSubTypeList.FirstOrDefault(x => x.Id == item.SubTypeId)?.SubTypeName;
+                item.StatusName = valueHelp.FirstOrDefault(x => x.ValueType == ConstantValue.ValueTypeAccountStatus && x.ValueKey == item.Status)?.ValueText;
             }
 
             return data;
@@ -77,8 +79,15 @@ namespace Archemy.Account.Bll
         /// <returns></returns>
         public AccountViewModel GetDetail(int id)
         {
-            return _mapper.Map<Data.Pocos.Account, AccountViewModel>(
+            var result = _mapper.Map<Data.Pocos.Account, AccountViewModel>(
                    _unitOfWork.GetRepository<Data.Pocos.Account>().GetCache(x => x.Id == id).FirstOrDefault());
+
+            result.AreaName = _unitOfWork.GetRepository<Data.Pocos.Area>().GetCache(x => x.Id == result.AreaId).FirstOrDefault()?.AreaName;
+            result.TypeName = _unitOfWork.GetRepository<Data.Pocos.AccountType>().GetCache(x => x.Id == result.TypeId).FirstOrDefault()?.TypeName;
+            result.SubTypeName = _unitOfWork.GetRepository<Data.Pocos.AccountSubType>().GetCache(x => x.Id == result.SubTypeId).FirstOrDefault()?.SubTypeName;
+            result.StatusName = _unitOfWork.GetRepository<Data.Pocos.ValueHelp>().GetCache(x => x.ValueType == ConstantValue.ValueTypeAccountStatus && x.ValueKey == result.Status).FirstOrDefault()?.ValueText;
+
+            return result;
         }
 
         /// <summary>
@@ -143,6 +152,45 @@ namespace Archemy.Account.Bll
                 _unitOfWork.Complete(scope);
             }
             this.ReloadCacheAccount();
+            return result;
+        }
+
+        /// <summary>
+        /// Get product stat order account.
+        /// </summary>
+        /// <param name="accountId">The account identity.</param>
+        /// <returns></returns>
+        public IEnumerable<AccountProductSellViewModel> GetProductAccountSell(int accountId)
+        {
+            var result = new List<AccountProductSellViewModel>();
+            var productList = _unitOfWork.GetRepository<Data.Pocos.Product>().GetCache();
+            var accOrder = _unitOfWork.GetRepository<Data.Pocos.Order>().Get(x => x.AccountId == accountId);
+            foreach (var item in accOrder)
+            {
+                var orderItems = _unitOfWork.GetRepository<Data.Pocos.OrderDetail>().Get(x => x.OrderId == item.Id);
+                foreach (var subItem in orderItems)
+                {
+                    var temp = result.FirstOrDefault(x => x.ProductId == subItem.ProductId);
+                    if (temp != null)
+                    {
+                        temp.PurchaseAmount = temp.PurchaseAmount + subItem.Prince.Value;
+                        temp.PurchaseQuantity = temp.PurchaseQuantity + subItem.Quantity.Value;
+                    }
+                    else
+                    {
+                        var product = productList.FirstOrDefault(x => x.Id == subItem.ProductId.Value);
+                        result.Add(new AccountProductSellViewModel
+                        {
+                            ProductId = subItem.ProductId.Value,
+                            ProductName = product?.ProductName,
+                            PurchaseQuantity = subItem.Quantity.Value,
+                            PurchaseAmount = subItem.Prince.Value,
+                            Unit = product?.Unit
+                        });
+                    }
+                }
+
+            }
             return result;
         }
 

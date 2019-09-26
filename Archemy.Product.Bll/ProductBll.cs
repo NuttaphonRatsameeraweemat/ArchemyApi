@@ -75,6 +75,23 @@ namespace Archemy.Product.Bll
         }
 
         /// <summary>
+        /// Get list product filter by product type id.
+        /// </summary>
+        /// <param name="productTypeId">The product type identity.</param>
+        /// <returns></returns>
+        public IEnumerable<ProductViewModel> GetListByProductType(int productTypeId)
+        {
+            var data = _mapper.Map<IEnumerable<Data.Pocos.Product>, IEnumerable<ProductViewModel>>(
+                   _unitOfWork.GetRepository<Data.Pocos.Product>().GetCache(x=>x.ProductTypeId == productTypeId));
+            var productType = _unitOfWork.GetRepository<ProductType>().GetCache(x=>x.Id == productTypeId).FirstOrDefault();
+            foreach (var item in data)
+            {
+                item.ProductTypeName = productType.ProductTypeName;
+            }
+            return data;
+        }
+
+        /// <summary>
         /// Insert new Product item.
         /// </summary>
         /// <param name="model">The Product information value.</param>

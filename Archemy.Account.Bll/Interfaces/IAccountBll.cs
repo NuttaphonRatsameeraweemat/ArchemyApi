@@ -35,5 +35,11 @@ namespace Archemy.Account.Bll.Interfaces
         /// <param name="id">The identity of Account.</param>
         /// <returns></returns>
         ResultViewModel Delete(int id);
+        /// <summary>
+        /// Get product stat order account.
+        /// </summary>
+        /// <param name="accountId">The account identity.</param>
+        /// <returns></returns>
+        IEnumerable<AccountProductSellViewModel> GetProductAccountSell(int accountId);
     }
 }

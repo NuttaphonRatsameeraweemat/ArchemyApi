@@ -19,8 +19,8 @@ namespace Archemy.Account.Bll.Models
         public string MainContract { get; set; }
         [MaxLength(150)]
         public string Contract1 { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        public string StartDateString { get; set; }
+        public string EndDateString { get; set; }
         public string Status { get; set; }
 
         public List<ContractItemViewModel> ContractItems { get; set; }

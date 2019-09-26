@@ -13,6 +13,7 @@ namespace Archemy.Order.Bll.Models
         public string ProductName { get; set; }
         public decimal Prince { get; set; }
         public decimal PerPrince { get; set; }
+        public string Unit { get; set; }
         [Required]
         public int Quantity { get; set; }
     }

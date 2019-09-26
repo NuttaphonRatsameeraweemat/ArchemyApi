@@ -1,6 +1,7 @@
 ﻿using Archemy.Account.Bll.Interfaces;
 using Archemy.Account.Bll.Models;
 using Archemy.Data.Repository.Interfaces;
+using Archemy.Helper;
 using Archemy.Helper.Components;
 using Archemy.Helper.Models;
 using AutoMapper;
@@ -67,12 +68,16 @@ namespace Archemy.Account.Bll
         /// <returns></returns>
         public ContractViewModel GetDetail(int id)
         {
-            var data = _mapper.Map<Data.Pocos.Contract, ContractViewModel>(
-                   _unitOfWork.GetRepository<Data.Pocos.Contract>().Get(x => x.Id == id).FirstOrDefault());
+            var contract = _unitOfWork.GetRepository<Data.Pocos.Contract>().Get(x => x.Id == id).FirstOrDefault();
+            var data = _mapper.Map<Data.Pocos.Contract, ContractViewModel>(contract);
             var productList = _unitOfWork.GetRepository<Data.Pocos.Product>().GetCache();
             var contractItem = _unitOfWork.GetRepository<Data.Pocos.ContractItem>().Get(x => x.ContractId == data.Id);
             data.ContractItems = _mapper.Map<List<Data.Pocos.ContractItem>, List<ContractItemViewModel>>(
                    _unitOfWork.GetRepository<Data.Pocos.ContractItem>().Get(x => x.ContractId == data.Id).ToList());
+
+            data.StartDateString = contract.StartDate.HasValue ? contract.StartDate.Value.ToString(ConstantValue.DateTimeFormat) : string.Empty;
+            data.EndDateString = contract.EndDate.HasValue ? contract.EndDate.Value.ToString(ConstantValue.DateTimeFormat) : string.Empty;
+
             foreach (var item in data.ContractItems)
             {
                 var temp = productList.FirstOrDefault(x => x.Id == item.ProductId);
@@ -125,6 +130,8 @@ namespace Archemy.Account.Bll
             using (TransactionScope scope = new TransactionScope())
             {
                 var contract = _mapper.Map<ContractViewModel, Data.Pocos.Contract>(model);
+                contract.StartDate = UtilityService.ConvertToDateTime(model.StartDateString, ConstantValue.DateTimeFormat);
+                contract.EndDate = UtilityService.ConvertToDateTime(model.EndDateString, ConstantValue.DateTimeFormat);
                 contract.Status = status;
                 _unitOfWork.GetRepository<Data.Pocos.Contract>().Add(contract);
                 _unitOfWork.Complete();
@@ -161,8 +168,8 @@ namespace Archemy.Account.Bll
                 var contract = _unitOfWork.GetRepository<Data.Pocos.Contract>().Get(x => x.Id == model.Id).FirstOrDefault();
                 contract.Contract1 = model.Contract1;
                 contract.MainContract = model.MainContract;
-                contract.StartDate = model.StartDate;
-                contract.EndDate = model.EndDate;
+                contract.StartDate = UtilityService.ConvertToDateTime(model.StartDateString, ConstantValue.DateTimeFormat);
+                contract.EndDate = UtilityService.ConvertToDateTime(model.EndDateString, ConstantValue.DateTimeFormat);
                 contract.Status = status;
                 _unitOfWork.GetRepository<Data.Pocos.Contract>().Update(contract);
                 this.EditItem(contract.Id, model.ContractItems);

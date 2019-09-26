@@ -49,6 +49,13 @@ namespace Archemy.Api.Controller.AccountController
             return Ok(_account.GetDetail(id));
         }
 
+        [HttpGet]
+        [Route("GetAccountProductOrder")]
+        public IActionResult GetAccountProductOrder(int accountId)
+        {
+            return Ok(_account.GetProductAccountSell(accountId));
+        }
+
         [HttpPost]
         [Route("Save")]
         public IActionResult Save([FromBody]AccountViewModel model)

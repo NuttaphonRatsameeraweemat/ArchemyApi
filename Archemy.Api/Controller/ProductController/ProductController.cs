@@ -44,6 +44,14 @@ namespace Archemy.Api.Controller.ProductController
             return Ok(_product.GetList());
         }
 
+
+        [HttpGet]
+        [Route("GetListByProductType")]
+        public IActionResult GetListByProductType(int productTypeId)
+        {
+            return Ok(_product.GetListByProductType(productTypeId));
+        }
+
         [HttpGet]
         [Route("GetDetail")]
         public IActionResult GetDetail(int id)

@@ -25,5 +25,6 @@ namespace Archemy.Account.Bll.Models
         public string AreaName { get; set; }
         [MaxLength(10)]
         public string Status { get; set; }
+        public string StatusName { get; set; }
     }
 }

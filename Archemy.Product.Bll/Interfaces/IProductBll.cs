@@ -20,6 +20,12 @@ namespace Archemy.Product.Bll.Interfaces
         /// <returns></returns>
         ProductViewModel GetDetail(int id);
         /// <summary>
+        /// Get list product filter by product type id.
+        /// </summary>
+        /// <param name="productTypeId">The product type identity.</param>
+        /// <returns></returns>
+        IEnumerable<ProductViewModel> GetListByProductType(int productTypeId);
+        /// <summary>
         /// Insert new Product item.
         /// </summary>
         /// <param name="model">The Product information value.</param>

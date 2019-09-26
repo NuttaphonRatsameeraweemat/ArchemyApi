@@ -104,7 +104,7 @@ namespace Archemy.Order.Bll
                     Quantity = item.Quantity.Value
                 });
             }
-            return null;
+            return result;
         }
 
         /// <summary>
@@ -118,7 +118,11 @@ namespace Archemy.Order.Bll
             using (TransactionScope scope = new TransactionScope())
             {
                 var order = _mapper.Map<OrderViewModel, Data.Pocos.Order>(model);
+                order.EmpId = _token.EmpId;
+                order.OrderDate = DateTime.Now;
                 _unitOfWork.GetRepository<Data.Pocos.Order>().Add(order);
+                _unitOfWork.Complete();
+                this.SaveItem(order.Id, model.OrderItems);
                 _unitOfWork.Complete(scope);
             }
             _activityTimeLine.Save(new Account.Bll.Models.ActivityTimeLineViewModel { AccountId = model.AccountId, ActivityComment = ConstantValue.ActCreateOrder });
@@ -148,8 +152,8 @@ namespace Archemy.Order.Bll
             var result = new List<OrderDetailViewModel>();
             var productList = _unitOfWork.GetRepository<Product>().GetCache();
             var contract = _unitOfWork.GetRepository<Contract>().Get(x => x.AccountId == accountId &&
-                                                                          x.StartDate.Value.Date >= DateTime.Now.Date &&
-                                                                          x.EndDate.Value.Date <= DateTime.Now.Date).FirstOrDefault();
+                                                                          x.StartDate.Value.Date <= DateTime.Now.Date &&
+                                                                          x.EndDate.Value.Date >= DateTime.Now.Date).FirstOrDefault();
 
             var contractItems = _unitOfWork.GetRepository<ContractItem>().Get(x => x.ContractId == contract.Id);
 
@@ -160,7 +164,8 @@ namespace Archemy.Order.Bll
                 {
                     ProductId = subItem.ProductId.Value,
                     ProductName = temp?.ProductName,
-                    PerPrince = subItem.ContractPrince.Value
+                    PerPrince = subItem.ContractPrince.Value,
+                    Unit = temp?.Unit
                 });
             }
 

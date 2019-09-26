@@ -71,14 +71,16 @@ namespace Archemy.Api.Extensions
         {
             CreateMap<AccountViewModel, Data.Pocos.Account>();
             CreateMap<Data.Pocos.Account, AccountViewModel>();
-            CreateMap<ContactViewModel, Data.Pocos.Contact>();
-            CreateMap<Data.Pocos.Contact, ContactViewModel>();
             CreateMap<ContractViewModel, Data.Pocos.Contract>();
             CreateMap<Data.Pocos.Contract, ContractViewModel>();
+            CreateMap<ContractItemViewModel, Data.Pocos.ContractItem>();
+            CreateMap<Data.Pocos.ContractItem, ContractItemViewModel>();
             CreateMap<ActivityTimeLineViewModel, Data.Pocos.ActivityTimeLine>();
             CreateMap<Data.Pocos.ActivityTimeLine, ActivityTimeLineViewModel>();
             CreateMap<PlanViewModel, Data.Pocos.Plan>();
             CreateMap<Data.Pocos.Plan, PlanViewModel>();
+            CreateMap<ContactViewModel, Data.Pocos.Contact>();
+            CreateMap<Data.Pocos.Contact, ContactViewModel>();
         }
 
         /// <summary>
@@ -88,6 +90,8 @@ namespace Archemy.Api.Extensions
         {
             CreateMap<OrderViewModel, Data.Pocos.Order>();
             CreateMap<Data.Pocos.Order, OrderViewModel>();
+            CreateMap<OrderDetailViewModel, Data.Pocos.OrderDetail>();
+            CreateMap<Data.Pocos.OrderDetail, OrderDetailViewModel>();
         }
 
         #endregion
